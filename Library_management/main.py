@@ -76,16 +76,17 @@ def status():
     find_book = library_cursor.execute('''
                 select status from library where bookId == ?
                 ''',(id,))
-    
-    print(str(find_book))
-    if find_book == "available":
+    data = find_book.fetchall()
+
+    print(data)
+    if data[0][0] == "available":
         library_cursor.execute('''
                             update library
                             set status = "issued"
                             where bookId == ?
                             ''',(id,))
         print("Availability of the book: issued")
-    elif find_book == "issued":
+    elif data[0][0] == "issued":
         library_cursor.execute('''
                             update library
                             set status = "available"
