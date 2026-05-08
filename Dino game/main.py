@@ -1,13 +1,14 @@
 import pygame
-from settings import *
-from dino import *
+import settings as s
+from dino import Dino
+import gameLogic as g
 
 pygame.init()
 clock = pygame.time.Clock()
 
-bg = pygame.image.load(bg_path)
-bg = pygame.transform.scale(bg,(screen_width,screen_height))
-ground = pygame.image.load(ground_path)
+bg = pygame.image.load(s.bg_path)
+bg = pygame.transform.scale(bg,(s.screen_width,s.screen_height))
+ground = pygame.image.load(s.ground_path)
     
 dino = Dino()
 playerGroup = pygame.sprite.Group()
@@ -15,41 +16,41 @@ playerGroup.add(dino)
 
 def moveGround():
     global groundX
-    groundX -=groundSpeed
-    if groundX < -40:
-        groundX = 0
+    s.groundX -= s.groundSpeed
+    if s.groundX < -40:
+        s.groundX = 0
 
 
-while running:
-    clock.tick(60)
+while s.running:
+    clock.tick(s.FPS)
     for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                    running = False
+                    s.running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                   gameOn = not gameOn
+                   s.gameOn = not s.gameOn
                 
-                if event.key == pygame.K_d and gameOn == True:
+                if event.key == pygame.K_d and s.gameOn == True:
                      dino.dinoState = "dead"
                 
-                if event.key == pygame.K_r and gameOn == True:
+                if event.key == pygame.K_r and s.gameOn == True:
                      dino.dinoState = "run"
 
-                if event.key == pygame.K_w and gameOn == True:
+                if event.key == pygame.K_w and s.gameOn == True:
                      dino.dinoState = "walk"
 
                 if event.key == pygame.K_i:
                      dino.dinoState = "idle"
-                     gameOn = False
+                     s.gameOn = False
 
-                if event.key == pygame.K_j and gameOn == True:
+                if event.key == pygame.K_j and s.gameOn == True:
                      dino.dinoState = "jump"
     
-    if gameOn:
+    if s.gameOn:
         moveGround()
-    screen.blit(bg,(0,0))
-    screen.blit(ground,(groundX,groundY))
-    playerGroup.draw(screen)
+    s.screen.blit(bg,(0,0))
+    s.screen.blit(ground,(s.groundX,s.groundY))
+    playerGroup.draw(s.screen)
     playerGroup.update()
-    pygame.draw.rect(screen,"red",dino,2)
+    pygame.draw.rect(s.screen,"red",dino,2)
     pygame.display.update()

@@ -12,6 +12,7 @@ groundX= 0
 gameOn = False
 groundSpeed = 4
 running = True
+FPS = 180
 
 deadImages = r"Dino game\png\Dead "
 walkImages = r"Dino game\png\Walk "
