@@ -12,10 +12,26 @@ groundX= 0
 gameOn = False
 groundSpeed = 4
 running = True
-FPS = 180
+FPS = 160
+clock = pygame.time.Clock()
+
+cactusImage = r"Dino game\obstacles_png\cactus.png"
+spikeImage = r"Dino game\obstacles_png\spikes.png"
+listOfObstacle = [cactusImage, spikeImage]
+obstacleW = 100
+obstacleH = 100
 
 deadImages = r"Dino game\png\Dead "
 walkImages = r"Dino game\png\Walk "
 idleImages = r"Dino game\png\Idle "
 jumpImages = r"Dino game\png\Jump "
 runImages = r"Dino game\png\Run "
+
+font = pygame.font.Font(None, 40)
+score = 0
+lives = 3
+
+bg = None
+ground = None
+
+count = 0
