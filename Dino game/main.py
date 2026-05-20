@@ -5,6 +5,7 @@ from dino import Dino
 from obstacles import Obstacles
 import gameLogic as g
 import screenLogic as sl
+import decor as d
 
 s.bg = pygame.image.load(s.bg_path)
 s.bg = pygame.transform.scale(s.bg,(s.screen_width,s.screen_height))
@@ -15,6 +16,8 @@ playerGroup = pygame.sprite.Group()
 playerGroup.add(dino)
 
 ObstacleGroup = pygame.sprite.Group()
+
+pygame.time.set_timer(s.spawn_decor, 3000)
 
 while s.running:
     s.clock.tick(s.FPS)
@@ -28,6 +31,8 @@ while s.running:
                     s.running = False
             if event.type == pygame.KEYDOWN:
                 sl.handleKeyEvent(event, dino)
+            if event.type == s.spawn_decor:
+                 s.decorGroup.add(d.Decor())
     
     if s.gameOn:
         g.moveGround()
@@ -37,4 +42,6 @@ while s.running:
     playerGroup.update()
     ObstacleGroup.draw(s.screen)
     ObstacleGroup.update()
+    s.decorGroup.draw(s.screen)
+    s.decorGroup.update()
     pygame.display.update()

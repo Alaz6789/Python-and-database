@@ -17,6 +17,7 @@ clock = pygame.time.Clock()
 
 cactusImage = r"Dino game\obstacles_png\cactus.png"
 spikeImage = r"Dino game\obstacles_png\spikes.png"
+cloudImagePath = r"Dino game\obstacles_png\cloud_png.png"
 listOfObstacle = [cactusImage, spikeImage]
 obstacleW = 100
 obstacleH = 100
@@ -30,6 +31,9 @@ runImages = r"Dino game\png\Run "
 font = pygame.font.Font(None, 40)
 score = 0
 lives = 3
+
+decorGroup = pygame.sprite.Group()
+spawn_decor = pygame.USEREVENT +1
 
 bg = None
 ground = None
