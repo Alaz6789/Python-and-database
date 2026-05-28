@@ -39,3 +39,13 @@ bg = None
 ground = None
 
 count = 0
+
+GAVEOVERSCREEN = "main screen"
+AUTHSCREEN = "authentication screen"
+GAMESCREEN = "game screen"
+MENUSCREEN = "menu screen"
+
+current_screen = MENUSCREEN
+
+start_button = pygame.Rect(300,300,200,70)
+quit_button = pygame.Rect(300,400,200,70)

@@ -33,15 +33,28 @@ while s.running:
                 sl.handleKeyEvent(event, dino)
             if event.type == s.spawn_decor:
                  s.decorGroup.add(d.Decor())
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                 mouse_pos = pygame.mouse.get_pos()
+                 sl.setScreen(mouse_pos)
     
     if s.gameOn:
         g.moveGround()
     
-    sl.screenHandler()
-    playerGroup.draw(s.screen)
-    playerGroup.update()
-    ObstacleGroup.draw(s.screen)
-    ObstacleGroup.update()
-    s.decorGroup.draw(s.screen)
-    s.decorGroup.update()
+    if s.current_screen == s.GAMESCREEN:
+        sl.screenHandler()
+        playerGroup.draw(s.screen)
+        playerGroup.update()
+        ObstacleGroup.draw(s.screen)
+        ObstacleGroup.update()
+        s.decorGroup.draw(s.screen)
+        s.decorGroup.update()
+
+    elif s.current_screen == s.MENUSCREEN:
+         sl.drawMenuScreen()
+
+    elif s.current_screen == s.GAVEOVERSCREEN:
+         sl.drawGameOverScreen()
+
+    
+
     pygame.display.update()

@@ -33,3 +33,26 @@ def handleKeyEvent(event, dino):
     if event.key == pygame.K_j and s.gameOn == True:
         dino.index = 0
         dino.startJump()
+
+def drawGameOverScreen():
+      pass
+
+def drawMenuScreen():
+      s.screen.fill("WHITE")
+      title = s.font.render("DINO GAME", True, "BLACK")
+      s.screen.blit(title,(320,100))
+      drawButton("START", s.start_button, "RED")
+      drawButton("QUIT", s.quit_button, "BLACK")
+
+def drawButton(text, rect, color):
+      pygame.draw.rect(s.screen, color, rect,)
+      buttonText = s.font.render(text, False, "WHITE")
+      textRect = buttonText.get_rect(center=rect.center)
+      s.screen.blit(buttonText,textRect)
+
+def setScreen(pos):
+      if s.start_button.collidepoint(pos):
+            s.current_screen = s.GAMESCREEN
+      elif s.quit_button.collidepoint(pos):
+            s.running = False
+            
