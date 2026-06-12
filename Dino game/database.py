@@ -40,7 +40,7 @@ def sign_in(username, password):
 def update_password(username):
      account = dino_cursor.execute('''
                 select * from users where username == ?
-                '''(username,))
+                ''',(username,))
      if account.fetchall():
         new_password = input("What is the new password: ")
         dino_cursor.execute('''
@@ -52,14 +52,14 @@ def update_password(username):
 def delete_account(username):
      account = dino_cursor.execute('''
                 select * from users where username == ?
-                '''(username,))
+                ''',(username,))
      if account.fetchall():
         dino_cursor.execute('''
         delete from users where username == ?
         ''',(username,))
      account = dino_cursor.execute('''
                 select * from scores where username == ?
-                '''(username,))
+                ''',(username,))
      if account.fetchall():
         dino_cursor.execute('''
         delete from scores where username == ?
@@ -68,14 +68,14 @@ def delete_account(username):
 def save_score(username, score):
     dino_cursor.execute('''
                 insert into scores(username, score) values(?,?)
-                '''(username, score))
+                ''',(username, score))
     print("Your score was successfully saved")
     dinoDatabase.commit()
 
 def get_high_score(username):
     dino_cursor.execute('''
                 select username, max(score) from scores where username == ?
-                '''(username,))
+                ''',(username,))
     data = dino_cursor.fetchall()
     for item in data:
                  print(f"""
