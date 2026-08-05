@@ -13,7 +13,7 @@ class Dino(pygame.sprite.Sprite):
          self.dinoGround = s.groundY+30
          self.index = 0
          self.image = self.deadImages[self.index]
-         self.rect = self.image.get_rect(center=(100,100))
+         self.rect = self.image.get_rect(center=(x,100))
          self.rect.bottom = self.dinoGround
          self.wait = 0
          self.vel = 0
@@ -50,7 +50,7 @@ class Dino(pygame.sprite.Sprite):
     def animationHandler(self, imageType):
         self.wait += 1
         if self.wait > 10:
-             self. image = imageType[self.index]
+             self.image = imageType[self.index]
              self.wait = 0
              self.index = (self.index+1) % len(imageType)
 
@@ -96,6 +96,3 @@ class Dino(pygame.sprite.Sprite):
 
          if self.dinoState == "run":
               self.runAnimation()
-
-         if self.dinoState == "walk":
-              self.walkAnimation()

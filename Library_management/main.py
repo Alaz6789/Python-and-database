@@ -78,7 +78,6 @@ def status():
                 ''',(id,))
     data = find_book.fetchall()
 
-    print(data)
     if data[0][0] == "available":
         library_cursor.execute('''
                             update library

@@ -5,7 +5,7 @@ dino_cursor = dinoDatabase.cursor()
 dino_cursor.execute("""create table if not exists users(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT UNIQUE,
-                    passwod TEXT
+                    password TEXT
                     )""")
 
 dino_cursor.execute("""create table if not exists scores(

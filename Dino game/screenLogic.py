@@ -44,6 +44,20 @@ def drawMenuScreen():
       drawButton("START", s.start_button, "RED")
       drawButton("QUIT", s.quit_button, "BLACK")
 
+def drawAuthScreen():
+      s.screen.fill("WHITE")
+      title = s.font.render("DINO GAME", True, "BLACK")
+      s.screen.blit(title,(320,100))
+      drawButton("Sign in", s.sign_in_button, "RED")
+      drawButton("Sign up", s.sign_up_button, "BLACK")
+
+def drawSignInScreen():
+      s.screen.fill("WHITE")
+      title = s.font.render("DINO GAME", True,"BLACK")
+      s.screen.blit(title,(320,180))
+      drawButton("Sign IN", s.sign_in_button,"RED")
+      drawButton("Sign OUT", s.sign_up_button, "BLACK")
+
 def drawButton(text, rect, color):
       pygame.draw.rect(s.screen, color, rect,)
       buttonText = s.font.render(text, False, "WHITE")
@@ -51,8 +65,28 @@ def drawButton(text, rect, color):
       s.screen.blit(buttonText,textRect)
 
 def setScreen(pos):
-      if s.start_button.collidepoint(pos):
-            s.current_screen = s.GAMESCREEN
-      elif s.quit_button.collidepoint(pos):
-            s.running = False
-            
+      if s.current_screen == s.MENUSCREEN:
+        if s.start_button.collidepoint(pos):
+                s.current_screen = s.GAMESCREEN
+        elif s.quit_button.collidepoint(pos):
+                s.running = False
+
+      elif s.current_screen == s.AUTHSCREEN:
+        if s.sign_in_button.collidepoint(pos):
+                s.current_screen = s.SIGNINSCREEN
+
+      elif s.current_screen == s.SIGNINSCREEN:
+            if s.userIDinputArea.collidepoint(pos):
+                  s.activeInputBox = "userinput"
+            elif s.passwordInputArea.collidepoint(pos):
+                  s.activeInputBox = "password"
+            else:
+                  s.activeInputBox = None            
+        
+def drawInput(rect, active):
+      colour = "GREEN" if active else "RED" 
+      pygame.draw_rect(s.screen.color.rect)
+      renderedText = s.font.render(text, False, "BLACK")
+      textRect = renderedText.get_rect(center=rect.center)
+      s.screen.blit(renderedText,textRect)
+      

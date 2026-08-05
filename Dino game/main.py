@@ -15,8 +15,6 @@ dino = Dino()
 playerGroup = pygame.sprite.Group()
 playerGroup.add(dino)
 
-ObstacleGroup = pygame.sprite.Group()
-
 pygame.time.set_timer(s.spawn_decor, 3000)
 
 while s.running:
@@ -24,28 +22,38 @@ while s.running:
     s.count += 1
     if s.count > 300 and s.gameOn == True:
         obstacle = Obstacles()
-        ObstacleGroup.add(obstacle)
+        s.ObstacleGroup.add(obstacle)
         s.count = 0
     for event in pygame.event.get():
             if event.type == pygame.QUIT:
                     s.running = False
             if event.type == pygame.KEYDOWN:
                 sl.handleKeyEvent(event, dino)
+                if s.activeInputBox == "userinput":
+                     if event.key == pygame.K_BACKSPACE:
+                          s.userInputText - s.userInputText[0:len(s.userInputText)-1]
+                     else:
+                          s.userInputText += event.unicode
+                          print(s.userInputText)
             if event.type == s.spawn_decor:
                  s.decorGroup.add(d.Decor())
             if event.type == pygame.MOUSEBUTTONDOWN:
                  mouse_pos = pygame.mouse.get_pos()
                  sl.setScreen(mouse_pos)
+
+    if pygame.sprite.spritecollide(dino,s.ObstacleGroup,False,pygame.sprite.collide_mask):
+         g.stopGame(dino)
     
     if s.gameOn:
         g.moveGround()
+        s.score += 1
     
     if s.current_screen == s.GAMESCREEN:
         sl.screenHandler()
         playerGroup.draw(s.screen)
         playerGroup.update()
-        ObstacleGroup.draw(s.screen)
-        ObstacleGroup.update()
+        s.ObstacleGroup.draw(s.screen)
+        s.ObstacleGroup.update()
         s.decorGroup.draw(s.screen)
         s.decorGroup.update()
 
@@ -54,6 +62,12 @@ while s.running:
 
     elif s.current_screen == s.GAVEOVERSCREEN:
          sl.drawGameOverScreen()
+
+    elif s.current_screen == s.AUTHSCREEN:
+         sl.drawAuthScreen()
+
+    elif s.current_screen == s.SIGNINSCREEN:
+         sl.drawSignInScreen()
 
     
 
