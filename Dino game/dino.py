@@ -13,7 +13,7 @@ class Dino(pygame.sprite.Sprite):
          self.dinoGround = s.groundY+30
          self.index = 0
          self.image = self.deadImages[self.index]
-         self.rect = self.image.get_rect(center=(x,100))
+         self.rect = self.image.get_rect(center=(100,100))
          self.rect.bottom = self.dinoGround
          self.wait = 0
          self.vel = 0

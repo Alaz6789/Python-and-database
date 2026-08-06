@@ -1,4 +1,5 @@
 import sqlite3
+import settings as s
 
 dinoDatabase = sqlite3.connect('Dino database.db')
 dino_cursor = dinoDatabase.cursor()
@@ -36,6 +37,7 @@ def sign_in(username, password):
         print("You have signed in!")
     else:
         print("This account is not regsitered")
+        s.MismatchError = True
 
 def update_password(username):
      account = dino_cursor.execute('''
@@ -85,5 +87,3 @@ def get_high_score(username):
                        ------------------
                        """)
                  
-
-dinoDatabase.close()

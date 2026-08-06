@@ -6,6 +6,7 @@ from obstacles import Obstacles
 import gameLogic as g
 import screenLogic as sl
 import decor as d
+import database as db
 
 s.bg = pygame.image.load(s.bg_path)
 s.bg = pygame.transform.scale(s.bg,(s.screen_width,s.screen_height))
@@ -29,13 +30,20 @@ while s.running:
                     s.running = False
             if event.type == pygame.KEYDOWN:
                 sl.handleKeyEvent(event, dino)
-                if s.activeInputBox == "userinput":
-                     if event.key == pygame.K_BACKSPACE:
-                          s.userInputText - s.userInputText[0:len(s.userInputText)-1]
-                     else:
-                          s.userInputText += event.unicode
-                          print(s.userInputText)
-            if event.type == s.spawn_decor:
+                if event.key == pygame.K_BACKSPACE:
+                    if s.activeInputBox == "userinput":
+                        s.userInputText = s.userInputText[0:len(s.userInputText)-1]
+                    elif s.activeInputBox == "password":
+                        s.passwordText = s.passwordText[0:len(s.passwordText)-1]
+                else:
+                    if s.activeInputBox == "userinput":
+                        s.userInputText += event.unicode
+                        s.errorOccur = False
+                        s.MismatchError = False
+                    elif s.activeInputBox == "password":
+                        s.passwordText += event.unicode
+                        s.errorOccur = False
+            if event.type == s.spawn_decor:  
                  s.decorGroup.add(d.Decor())
             if event.type == pygame.MOUSEBUTTONDOWN:
                  mouse_pos = pygame.mouse.get_pos()
@@ -43,6 +51,7 @@ while s.running:
 
     if pygame.sprite.spritecollide(dino,s.ObstacleGroup,False,pygame.sprite.collide_mask):
          g.stopGame(dino)
+         s.gameOn = False
     
     if s.gameOn:
         g.moveGround()
@@ -69,6 +78,11 @@ while s.running:
     elif s.current_screen == s.SIGNINSCREEN:
          sl.drawSignInScreen()
 
+    elif s.current_screen == s.SIGNUPSCREEN:
+         sl.drawSignUpScreen()
+
     
 
     pygame.display.update()
+
+db.dinoDatabase.close()
