@@ -79,6 +79,32 @@ def drawSignUpScreen():
             tryagain = s.font.render("Try again! Username or Password has no input", True,"RED")
             s.screen.blit(tryagain,(300,600))
 
+def drawDataScreen():
+      s.screen.fill("WHITE")
+      title = s.font.render(f"Welcome {s.username}", True,"BLACK")
+      s.screen.blit(title,(320,180))
+      drawButton("Play", s.play_button, "BLACK")
+      drawButton("Highest score", s.highestScore_button, "GREY")
+      drawButton("Sign Out", s.sign_out_button, "ORANGE")
+
+def drawHighestScoreScreen():
+      s.screen.fill("WHITE")
+      title = s.font.render(f"Highest Score:", True,"BLACK")
+      s.screen.blit(title,(320,180))
+      d.get_high_score(s.username)
+      score = s.font.render(str(s.highestScore), True,"BLACK")
+      s.screen.blit(score,(320,240))
+      drawButton("Go back", s.enter_button, "ORANGE")
+
+def drawGameOverScreen():
+      s.screen.fill("WHITE")
+      title = s.font.render(f"YOU DIED", True,"BLACK")
+      s.screen.blit(title,(320,180))
+      score = s.font.render(str(s.game_over_score), True,"BLACK")
+      s.screen.blit(score,(320,240))
+      drawButton("Go back", s.enter_button, "ORANGE")
+
+
 def drawButton(text, rect, color):
       pygame.draw.rect(s.screen, color, rect,)
       buttonText = s.font.render(text, False, "WHITE")
@@ -113,7 +139,7 @@ def setScreen(pos):
                         s.passwordText = ""
                         d.sign_in(s.username, s.password)
                         if s.MismatchError == False:
-                              s.current_screen = s.GAMESCREEN
+                              s.current_screen = s.DATASCREEN
             elif s.goBack_button.collidepoint(pos):
                   s.current_screen = s.AUTHSCREEN
             else:
@@ -138,6 +164,22 @@ def setScreen(pos):
                   s.current_screen = s.AUTHSCREEN
             else:
                   s.activeInputBox = None 
+
+      elif s.current_screen == s.DATASCREEN:
+            if s.play_button.collidepoint(pos):
+                  s.current_screen = s.GAMESCREEN
+            elif s.sign_out_button.collidepoint(pos):
+                  s.current_screen = s.AUTHSCREEN
+            elif s.highestScore_button.collidepoint(pos):
+                  s.current_screen = s.HIGHESTSCORESCREEN
+
+      elif s.current_screen == s.HIGHESTSCORESCREEN:
+            if s.enter_button.collidepoint(pos):
+                  s.current_screen = s.DATASCREEN
+
+      elif s.current_screen == s.GAVEOVERSCREEN:
+                  if s.enter_button.collidepoint(pos):
+                        s.current_screen = s.DATASCREEN
       
 def drawInput(rect, active,text):
       color = "GREEN" if active else "RED" 

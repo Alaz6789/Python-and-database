@@ -37,6 +37,7 @@ font = pygame.font.Font(None, 40)
 font.italic = True
 font.bold = True
 score = 0
+game_over_score = 0
 lives = 3
 
 ObstacleGroup = pygame.sprite.Group()
@@ -56,6 +57,8 @@ GAMESCREEN = "game screen"
 MENUSCREEN = "menu screen"
 SIGNINSCREEN = "sign in"
 SIGNUPSCREEN = "sign up"
+DATASCREEN = "data screen"
+HIGHESTSCORESCREEN = "highest score screen"
 
 current_screen = AUTHSCREEN
 
@@ -67,12 +70,17 @@ user_ID_button = pygame.Rect(300,300,300,70)
 user_password_button = pygame.Rect(300,400,300,70)
 enter_button = pygame.Rect(300,500,300,70)
 goBack_button = pygame.Rect(700,350,100,200)
+play_button = pygame.Rect(330,300,150,60)
+highestScore_button = pygame.Rect(330,380,150,60)
+sign_out_button = pygame.Rect(330,460,150,60)
+
 
 userInputText = ""
 passwordText = ""
 username = ""
 password = ""
 activeInputBox = None
+highestScore = 0
 
 errorOccur = False
 MismatchError = False

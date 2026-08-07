@@ -50,8 +50,16 @@ while s.running:
                  sl.setScreen(mouse_pos)
 
     if pygame.sprite.spritecollide(dino,s.ObstacleGroup,False,pygame.sprite.collide_mask):
-         g.stopGame(dino)
+         s.lives -= 1
          s.gameOn = False
+         if s.lives == 0:
+            g.stopGame(dino)
+            s.gameOn = False
+            db.save_score(s.username,s.score)
+            s.lives = 3
+            s.game_over_score = s.score
+            s.current_screen = s.GAVEOVERSCREEN
+            s.score = 0
     
     if s.gameOn:
         g.moveGround()
@@ -80,6 +88,15 @@ while s.running:
 
     elif s.current_screen == s.SIGNUPSCREEN:
          sl.drawSignUpScreen()
+
+    elif s.current_screen == s.DATASCREEN:
+         sl.drawDataScreen()
+
+    elif s.current_screen == s.HIGHESTSCORESCREEN:
+         sl.drawHighestScoreScreen()
+
+    elif s.current_screen == s.GAVEOVERSCREEN:
+         sl.drawGameOverScreen()
 
     
 

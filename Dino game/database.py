@@ -86,4 +86,5 @@ def get_high_score(username):
                        score : {item[1]}
                        ------------------
                        """)
+    s.highestScore = item[1]
                  

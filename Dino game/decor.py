@@ -9,6 +9,7 @@ class Decor(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(s.screen_width+100,random.randint(50,400)))
         
     def update(self):
-         self.rect.x -=1
-         if self.rect.x <-250:
-             self.kill()
+         if s.gameOn:
+            self.rect.x -=1
+            if self.rect.x <-250:
+                self.kill()

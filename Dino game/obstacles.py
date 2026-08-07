@@ -17,6 +17,7 @@ class Obstacles(pygame.sprite.Sprite):
         self.rect.bottom = s.groundY
 
     def update(self):
-        self.rect.x -= self.move
-        if self.rect.x < -5:
-            self.kill
+        if s.gameOn:
+            self.rect.x -= self.move
+            if self.rect.x < -5:
+                self.kill
