@@ -1,4 +1,8 @@
 from tkinter import *
+import requests
+
+API_KEY = "0cefbfd2e61cdb1456662457178a7c66"
+URL = "https://api.openweathermap.org/data/2.5/weather"
 
 win = Tk()
 win.geometry("669x634")
@@ -22,9 +26,22 @@ space = Label(Main_body,bg="#197E27")
 space.pack()
 Type_country = Entry(Main_body,bg="white",fg="grey",font=("Arial",20))
 Type_country.pack()
+
+def findWeather():
+    city = Type_country.get()
+    parameters = {
+        "q":city,
+        "appid":API_KEY,
+        "units":"metric"
+    }
+    res = requests.get(url=URL,params=parameters)
+    data = res.json()
+    temp = data['main']['temp']
+    Temp.config(text=f"TEMPERATURE : {temp} celsius")
+
 space = Label(Main_body,bg="#197E27")
 space.pack()
-Search = Button(Main_body,text="Search",font=("Arial", 10),width=12,height=2)
+Search = Button(Main_body,text="Search",font=("Arial", 10),width=12,height=2, command = findWeather)
 Search.pack()
 space = Label(Main_body,bg="#197E27")
 space.pack()
